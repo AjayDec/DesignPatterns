@@ -17,8 +17,8 @@ Object.defineProperty(task1, 'toString', {
 
 console.log(Object.keys(task1)); // does not show 'toString' due to enumerable=false
 
-console.log(task1); // results ivokign toString method
+console.log(task1); // results in dumping Object attributes
 
 task1.toString = 'Hello, breaking code'; // this is silently rejected due to writable : false
 
-console.log(task1);
+console.log(task1.toString());
