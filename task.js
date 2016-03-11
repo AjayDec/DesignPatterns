@@ -1,33 +1,24 @@
-//Adding attributes and properties to object
+//Creational Patterns: Constructor Pattern
 
-var task = {};
+var Task = function (name) {
+    this.name = name;
+    this.completed = false;
 
-task.title = 'My title';
-task.description = 'My description';
+    this.complete = function () {
+        console.log('Task completed: ' + this.name);
+        this.completed = true;
+    }
+    this.save = function () {
+        console.log('Saving task: ' + this.name);
+    }
+};
 
-Object.defineProperty(task, 'toString', {
-    value: function () {
-        return this.title + ', ' + this.description;
-    },
-    writable: false,
-    enumerable: false,
-    configureable: false
-});
+var task1 = new Task('This is a constructor task.');
+var task2 = new Task('This is a module task.');
+var task3 = new Task('This is a singleton task.');
+var task4 = new Task('This is a prototype task.');
 
-
-console.log(Object.keys(task)); // does not show 'toString' due to enumerable=false
-
-var urgentTask = Object.create(task);
-
-Object.defineProperty(urgentTask, 'toString', {
-    value: function () {
-        return this.title + ', I am urgent task';
-    },
-    writable: false,
-    enumerable: false,
-    configureable: false
-});
-
-console.log(Object.keys(urgentTask)); // does not show 'toString' due to enumerable=false
-
-console.log(urgentTask.toString());
+task1.complete();
+task2.save();
+task3.save();
+task4.save();
