@@ -1,13 +1,13 @@
-//Three ways to create javascript object
+//Adding attributes and properties to object
 
-// braces
 var task1 = {};
 
-//Object.Create
-var task2 = Object.create(Object.prototype);
+task1.title = 'My title';
+task1.description = 'My description';
 
-//new Object
-var task3 = new Object();
+task1.toString = function () {
+    return this.title + ', ' + this.description;
+}
 
-console.log('Task1: %s\nTask2: %s\nTask3: %s',
-    task1, task2, task3);
+console.log(task1);
+console.log(task1.toString());
