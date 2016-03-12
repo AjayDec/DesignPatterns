@@ -1,17 +1,12 @@
 var Task = require('./task.js');
-var repo = require('./taskRepository')
-var task1 = new Task(repo.get(1));
-var task2 = new Task({
-    name: 'This is a module task.'
-});
-var task3 = new Task({
-    name: 'This is a singleton task.'
-});
-var task4 = new Task({
-    name: 'This is a prototype task.'
-});
+var Repos = require('./repoFactory')
+var task1 = new Task(Repos.task.get(1));
+var task2 = new Task(Repos.task.get(2));
+var project1 = Repos.project.get(1);
+var user1 = Repos.user.get(1);
 
-task1.complete();
-task2.save();
-task3.save();
-task4.save();
+task1.project = project1;
+task1.user = user1;
+
+console.log(task1);
+task1.save();

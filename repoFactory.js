@@ -3,7 +3,7 @@ var repoFactory = function () {
 
     var repoList = [{
             name: 'task',
-            soruce: './taskRepository'
+            source: './taskRepository'
         },
         {
             name: 'user',
@@ -15,8 +15,8 @@ var repoFactory = function () {
         }];
 
     repoList.forEach(function (repo) {
-        repos[repo.anme] = require(repo.source)
+        repos[repo.name] = require(repo.source);
     });
-}
+};
 
 module.exports = new repoFactory;
