@@ -12,4 +12,4 @@ var repo = function () {
         save: save
     }
 }
-module.exports = repo;
+module.exports = repo(); // executing in module via new or  fn(), makes repo Singleton, bacause of 'require' cache mechanism
