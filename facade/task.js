@@ -28,6 +28,24 @@ var TaskService = function () {
     }
 }();
 
+//create a TaskService Facade or wrapper
+
+var TaskServiceFacade = function () {
+    var completeAndNotify = function (task) {
+        TaskService.complete(task);
+
+        if (myTask.completed == true) {
+            TaskService.setCompletedDate(task);
+            TaskService.notify(task);
+            TaskService.save(task);
+        }
+    };
+
+    return {
+        completeAndNotify: completeAndNotify
+    };
+}();
+
 var myTask = new Task({
     name: 'My Task',
     priority: 1,
@@ -36,12 +54,6 @@ var myTask = new Task({
     completed: false
 });
 
-TaskService.complete(myTask);
-
-if (myTask.completed == true) {
-    TaskService.setCompletedDate(myTask);
-    TaskService.notify(myTask);
-    TaskService.save(myTask);
-}
+TaskServiceFacade.completeAndNotify(myTask);
 
 console.log(myTask);
