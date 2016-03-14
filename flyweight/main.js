@@ -1,9 +1,10 @@
 var Task = function (data) {
     this.name = data.name;
-    this.priority = data.priority;
-    this.project = data.project;
-    this.user = data.user;
-    this.completed = data.completed;
+    this.flyweight = FlyWeightFactory.get(data.priority, data.project, data.user, data.completed);
+};
+
+Task.prototype.getPriority = function () {
+    return this.flyweight.priority;
 };
 
 var TaskCollection = function () {
@@ -30,6 +31,33 @@ var TaskCollection = function () {
     };
 };
 
+var FlyWeight = function (priority, project, user, completed) {
+    this.priority = priority;
+    this.project = project;
+    this.user = user;
+    this.completed = completed;
+};
+
+var FlyWeightFactory = (function () {
+    var flyweights = {};
+    var count = 0;
+
+    var get = function (priority, project, user, completed) {
+        if (!flyweights[priority + project + user + completed]) {
+            flyweights[priority + project + user + completed] = new FlyWeight(priority, project, user, completed);
+            count++;
+        }
+        return flyweights[priority + project + user + completed];
+    };
+    var getCount = function () {
+        return count;
+    };
+    return {
+        get: get,
+        getCount: getCount
+    };
+}());
+
 var tasks = new TaskCollection();
 
 var projects = ['none', 'courses', 'training', 'project'];
@@ -49,3 +77,4 @@ for (var i = 0; i < 100000; i++) {
 }
 var finalMemory = process.memoryUsage().heapUsed;
 console.log('Used Memory: %d MB, Tasks: %d', (finalMemory - initialMemory) / 1000000, tasks.getCount());
+console.log('FlyWeights: %d', FlyWeightFactory.getCount());
