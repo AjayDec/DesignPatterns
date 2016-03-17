@@ -26,7 +26,7 @@ var mediator = (function () {
 
     var subscribe = function (channel, context, func) {
         if (!this.channels[channel]) {
-            this.channels[channel] = []
+            this.channels[channel] = [];
         }
         this.channels[channel].push({
             context: context,
@@ -50,7 +50,7 @@ var mediator = (function () {
         channels: channels,
         subscribe: subscribe,
         publish: publish
-    }
+    };
 }());
 
 var task1 = new Task({
@@ -69,6 +69,6 @@ mediator.subscribe('complete', audit, audit.update);
 task1.complete = function () {
     mediator.publish('complete', this);
     Task.prototype.complete.call(this);
-}
+};
 
 task1.complete();
