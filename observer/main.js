@@ -7,6 +7,20 @@ var notificationService = function () {
     };
 };
 
+var ObserverList = function () {
+    this.observerlist = [];
+};
+
+ObserverList.prototype.add = function (obj) {
+    this.observerlist.push(obj);
+};
+
+ObserverList.prototype.get = function (index) {
+    if (index > -1 && index < this.observerlist.length) {
+        return this.observerlist[index];
+    }
+};
+
 var loggingService = function () {
     var message = 'Logging ';
     this.update = function (task) {
